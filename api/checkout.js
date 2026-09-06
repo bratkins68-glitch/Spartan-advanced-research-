@@ -2,21 +2,33 @@ export default async function handler(req, res) {
 
   if (req.method !== "POST") {
 
-    return res.status(405).json({ error: "Method not allowed" });
+    return res.status(405).json({
+
+      error: "Method not allowed"
+
+    });
 
   }
 
   try {
 
-    const { amount, orderId, description, email } = req.body || {};
+    const { amount, orderId, description } = req.body || {};
 
-    if (!amount || Number(amount) <= 0) {
+    const priceAmount = Number(amount);
 
-      return res.status(400).json({ error: "Invalid order amount" });
+    if (!Number.isFinite(priceAmount) || priceAmount <= 0) {
+
+      return res.status(400).json({
+
+        error: "Invalid order amount"
+
+      });
 
     }
 
-    if (!process.env.NOWPAYMENTS_API_KEY) {
+    const apiKey = process.env.NOWPAYMENTS_API_KEY;
+
+    if (!apiKey) {
 
       return res.status(500).json({
 
@@ -26,43 +38,47 @@ export default async function handler(req, res) {
 
     }
 
-    const response = await fetch("https://api.nowpayments.io/v1/invoice", {
+    const response = await fetch(
 
-      method: "POST",
+      "https://api.nowpayments.io/v1/invoice",
 
-      headers: {
+      {
 
-        "Content-Type": "application/json",
+        method: "POST",
 
-        "x-api-key": process.env.NOWPAYMENTS_API_KEY
+        headers: {
 
-      },
+          "Content-Type": "application/json",
 
-      body: JSON.stringify({
+          "x-api-key": apiKey
 
-        price_amount: Number(amount),
+        },
 
-        price_currency: "usd",
+        body: JSON.stringify({
 
-        order_id: orderId || `ORDER-${Date.now()}`,
+          price_amount: priceAmount,
 
-        order_description:
+          price_currency: "usd",
 
-          description || "Spartan Advanced Research Order",
+          order_id: orderId || `ORDER-${Date.now()}`,
 
-        success_url:
+          order_description:
 
-          "https://spartan-advanced-research.vercel.app/?payment=success",
+            description || "Spartan Advanced Research Order",
 
-        cancel_url:
+          success_url:
 
-          "https://spartan-advanced-research.vercel.app/?payment=cancelled",
+            "https://spartan-advanced-research.vercel.app/?payment=success",
 
-        customer_email: email || undefined
+          cancel_url:
 
-      })
+            "https://spartan-advanced-research.vercel.app/?payment=cancelled"
 
-    });
+        })
+
+      }
+
+    );
 
     const data = await response.json();
 
@@ -88,7 +104,9 @@ export default async function handler(req, res) {
 
     return res.status(500).json({
 
-      error: "Checkout failed"
+      error: "Checkout failed",
+
+      details: error.message
 
     });
 
