@@ -38,7 +38,7 @@ export default async function handler(req, res) {
 
     }
 
-    const response = await
+    const response = await fetch(
 
       "https://api.nowpayments.io/v1/payment",
 
