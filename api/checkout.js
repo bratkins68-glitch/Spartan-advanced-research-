@@ -8,11 +8,21 @@ export default async function handler(req, res) {
 
   try {
 
-    const { amount, orderId, description, email } = req.body;
+    const { amount, orderId, description, email } = req.body || {};
 
     if (!amount || Number(amount) <= 0) {
 
       return res.status(400).json({ error: "Invalid order amount" });
+
+    }
+
+    if (!process.env.NOWPAYMENTS_API_KEY) {
+
+      return res.status(500).json({
+
+        error: "NOWPayments API key is not configured"
+
+      });
 
     }
 
@@ -36,11 +46,19 @@ export default async function handler(req, res) {
 
         order_id: orderId || `ORDER-${Date.now()}`,
 
-        order_description: description || "Spartan Advanced Research Order",
+        order_description:
 
-        success_url: "https://spartan-advanced-research.vercel.app/?payment=success",
+          description || "Spartan Advanced Research Order",
 
-        cancel_url: "https://spartan-advanced-research.vercel.app/?payment=cancelled"
+        success_url:
+
+          "https://spartan-advanced-research.vercel.app/?payment=success",
+
+        cancel_url:
+
+          "https://spartan-advanced-research.vercel.app/?payment=cancelled",
+
+        customer_email: email || undefined
 
       })
 
