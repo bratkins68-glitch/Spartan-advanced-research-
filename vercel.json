@@ -1,0 +1,15 @@
+{
+
+  "rewrites": [
+
+    {
+
+      "source": "/",
+
+      "destination": "/%20Index%209%3A5%202.html"
+
+    }
+
+  ]
+
+}
