@@ -444,10 +444,7 @@ export default async function handler(req, res) {
 
       `${protocol}://${host}`;
 
-    const invoicePayload = {
-
-      price_amount: amount,
-
+price_amount: Number(amount),
       price_currency: "usd",
 
       order_id: orderId,
