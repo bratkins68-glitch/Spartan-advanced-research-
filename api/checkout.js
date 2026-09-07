@@ -21,7 +21,7 @@ export default async function handler(req, res) {
       return res.status(400).json({
 
         error: "Invalid order amount"
-
+by
       });
 
     }
@@ -40,7 +40,7 @@ export default async function handler(req, res) {
 
     const response = await fetch(
 
-      "https://api.nowpayments.io/v1/payment",
+"https://api.nowpayments.io/v1/invoice",      
 
         method: "POST",
 
