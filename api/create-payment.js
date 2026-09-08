@@ -1416,13 +1416,10 @@ export default async function handler(req, res) {
 
       shippingForQty(totalQty);
 
-    const amount =
-
-      Number(
-
-        (subtotal + shipping).toFixed(2)
-
-      );
+const amount = Number(
+  ((subtotal + shipping) / (1 - 0.005)).toFixed(2)
+);
+      
 
     const rawOrderId =
 
