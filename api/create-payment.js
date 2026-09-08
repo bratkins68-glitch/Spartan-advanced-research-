@@ -1476,10 +1476,9 @@ const amount = Number(
     const baseUrl =
 
       `${protocol}://${host}`;
-
+      
 price_amount: Number(amount),
-      price_currency: "usd",
-
+  price_currency: "usd",
       order_id: orderId,
 
       order_description:
