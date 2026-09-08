@@ -316,7 +316,7 @@ export default async function handler(req, res) {
 
       order_id: orderId,
 
-      amount
+      amount: amount
 
     });
 
