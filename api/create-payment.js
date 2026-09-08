@@ -10,87 +10,31 @@ const CATALOG = {
 
   "mots-c 20 mg": { name: "MOTS-C", strength: "20 mg", price: 65 },
 
-  "bpc-157 10 mg": {
-
-    name: "BPC-157",
-
-    strength: "10 mg",
-
-    price: 45
-
-  },
+  "bpc-157 10 mg": { name: "BPC-157", strength: "10 mg", price: 45 },
 
   "kpv 10 mg": { name: "KPV", strength: "10 mg", price: 40 },
 
   "kpv 5 mg": { name: "KPV", strength: "5 mg", price: 35 },
 
-  "tb-500 10 mg": {
-
-    name: "TB-500",
-
-    strength: "10 mg",
-
-    price: 60
-
-  },
+  "tb-500 10 mg": { name: "TB-500", strength: "10 mg", price: 60 },
 
   "klow 80 mg": { name: "KLOW", strength: "80 mg", price: 75 },
 
   "glow 70 mg": { name: "GLOW", strength: "70 mg", price: 65 },
 
-  "tesamorelin 10 mg": {
-
-    name: "Tesamorelin",
-
-    strength: "10 mg",
-
-    price: 50
-
-  },
+  "tesamorelin 10 mg": { name: "Tesamorelin", strength: "10 mg", price: 50 },
 
   "mt1 10 mg": { name: "MT1", strength: "10 mg", price: 35 },
 
   "mt2 10 mg": { name: "MT2", strength: "10 mg", price: 45 },
 
-  "ghk-cu 50 mg": {
+  "ghk-cu 50 mg": { name: "GHK-CU", strength: "50 mg", price: 30 },
 
-    name: "GHK-CU",
+  "ghk-cu 100 mg": { name: "GHK-CU", strength: "100 mg", price: 40 },
 
-    strength: "50 mg",
+  "nad+ 500 mg": { name: "NAD+", strength: "500 mg", price: 45 },
 
-    price: 30
-
-  },
-
-  "ghk-cu 100 mg": {
-
-    name: "GHK-CU",
-
-    strength: "100 mg",
-
-    price: 40
-
-  },
-
-  "nad+ 500 mg": {
-
-    name: "NAD+",
-
-    strength: "500 mg",
-
-    price: 45
-
-  },
-
-  "nad+ 1000 mg": {
-
-    name: "NAD+",
-
-    strength: "1000 mg",
-
-    price: 75
-
-  },
+  "nad+ 1000 mg": { name: "NAD+", strength: "1000 mg", price: 75 },
 
   "cjc1295 + ipamorelin 5 mg + 5 mg": {
 
@@ -102,65 +46,17 @@ const CATALOG = {
 
   },
 
-  "selank 10 mg": {
+  "selank 10 mg": { name: "Selank", strength: "10 mg", price: 35 },
 
-    name: "Selank",
+  "semax 10 mg": { name: "Semax", strength: "10 mg", price: 30 },
 
-    strength: "10 mg",
+  "dsip 10 mg": { name: "DSIP", strength: "10 mg", price: 30 },
 
-    price: 35
+  "5-amino-1mq 10 mg": { name: "5-Amino-1MQ", strength: "10 mg", price: 50 },
 
-  },
+  "ara290 10 mg": { name: "ARA290", strength: "10 mg", price: 65 },
 
-  "semax 10 mg": {
-
-    name: "Semax",
-
-    strength: "10 mg",
-
-    price: 30
-
-  },
-
-  "dsip 10 mg": {
-
-    name: "DSIP",
-
-    strength: "10 mg",
-
-    price: 30
-
-  },
-
-  "5-amino-1mq 10 mg": {
-
-    name: "5-Amino-1MQ",
-
-    strength: "10 mg",
-
-    price: 50
-
-  },
-
-  "ara290 10 mg": {
-
-    name: "ARA290",
-
-    strength: "10 mg",
-
-    price: 65
-
-  },
-
-  "b12 1 ml": {
-
-    name: "B12",
-
-    strength: "1 mL",
-
-    price: 25
-
-  },
+  "b12 1 ml": { name: "B12", strength: "1 mL", price: 25 },
 
   "glutathione 1500 mg": {
 
@@ -172,15 +68,7 @@ const CATALOG = {
 
   },
 
-  "epithalon 10 mg": {
-
-    name: "Epithalon",
-
-    strength: "10 mg",
-
-    price: 30
-
-  },
+  "epithalon 10 mg": { name: "Epithalon", strength: "10 mg", price: 30 },
 
   "bacteriostatic water 3 ml": {
 
@@ -248,9 +136,7 @@ export default async function handler(req, res) {
 
       return res.status(500).json({
 
-        error:
-
-          "NOWPAYMENTS_API_KEY is missing in Vercel Environment Variables."
+        error: "NOWPAYMENTS_API_KEY is missing in Vercel Environment Variables."
 
       });
 
@@ -264,11 +150,7 @@ export default async function handler(req, res) {
 
         : req.body || {};
 
-    const items = Array.isArray(body.items)
-
-      ? body.items
-
-      : [];
+    const items = Array.isArray(body.items) ? body.items : [];
 
     if (!items.length) {
 
@@ -310,13 +192,7 @@ export default async function handler(req, res) {
 
         1,
 
-        Math.min(
-
-          99,
-
-          parseInt(item?.qty, 10) || 1
-
-        )
+        Math.min(99, parseInt(item?.qty, 10) || 1)
 
       );
 
@@ -336,21 +212,13 @@ export default async function handler(req, res) {
 
     const amount = Number(
 
-      (
-
-        (subtotal + shipping) /
-
-        (1 - 0.005)
-
-      ).toFixed(2)
+      ((subtotal + shipping) / (1 - 0.005)).toFixed(2)
 
     );
 
     const rawOrderId =
 
-      body.order_id ||
-
-      `SPARTAN-${Date.now()}`;
+      body.order_id || `SPARTAN-${Date.now()}`;
 
     const orderId = String(rawOrderId)
 
@@ -376,17 +244,13 @@ export default async function handler(req, res) {
 
       return res.status(500).json({
 
-        error:
-
-          "Unable to determine checkout return URL."
+        error: "Unable to determine checkout return URL."
 
       });
 
     }
 
-    const baseUrl =
-
-      `${protocol}://${host}`;
+    const baseUrl = `${protocol}://${host}`;
 
     const invoicePayload = {
 
@@ -396,29 +260,21 @@ export default async function handler(req, res) {
 
       order_id: orderId,
 
-      order_description:
+      order_description: descriptionParts
 
-        descriptionParts
+        .join(", ")
 
-          .join(", ")
+        .slice(0, 250),
 
-          .slice(0, 250),
+      ipn_callback_url: `${baseUrl}/api/payment-webhook`,
 
       success_url:
 
-        `${baseUrl}/?payment=success&ref=${encodeURIComponent(
-
-          orderId
-
-        )}`,
+        `${baseUrl}/?payment=success&ref=${encodeURIComponent(orderId)}`,
 
       cancel_url:
 
-        `${baseUrl}/?payment=cancelled&ref=${encodeURIComponent(
-
-          orderId
-
-        )}`
+        `${baseUrl}/?payment=cancelled&ref=${encodeURIComponent(orderId)}`
 
     };
 
@@ -440,29 +296,19 @@ export default async function handler(req, res) {
 
         },
 
-        body: JSON.stringify(
-
-          invoicePayload
-
-        )
+        body: JSON.stringify(invoicePayload)
 
       }
 
     );
 
-    const rawText =
-
-      await npResponse.text();
+    const rawText = await npResponse.text();
 
     let npData = {};
 
     try {
 
-      npData = rawText
-
-        ? JSON.parse(rawText)
-
-        : {};
+      npData = rawText ? JSON.parse(rawText) : {};
 
     } catch (_) {}
 
@@ -470,51 +316,23 @@ export default async function handler(req, res) {
 
       const providerMessage =
 
-        (
+        (typeof npData?.message === "string" && npData.message) ||
 
-          typeof npData?.message ===
+        (typeof npData?.error === "string" && npData.error) ||
 
-            "string" &&
+        (typeof npData?.error?.message === "string" &&
 
-          npData.message
-
-        ) ||
-
-        (
-
-          typeof npData?.error ===
-
-            "string" &&
-
-          npData.error
-
-        ) ||
-
-        (
-
-          typeof npData?.error?.message ===
-
-            "string" &&
-
-          npData.error.message
-
-        ) ||
+          npData.error.message) ||
 
         rawText ||
 
         `HTTP ${npResponse.status}`;
 
-      return res
+      return res.status(npResponse.status).json({
 
-        .status(npResponse.status)
+        error: `NOWPayments: ${providerMessage}`
 
-        .json({
-
-          error:
-
-            `NOWPayments: ${providerMessage}`
-
-        });
+      });
 
     }
 
@@ -522,9 +340,7 @@ export default async function handler(req, res) {
 
       return res.status(502).json({
 
-        error:
-
-          "NOWPayments did not return an invoice URL."
+        error: "NOWPayments did not return an invoice URL."
 
       });
 
@@ -532,21 +348,13 @@ export default async function handler(req, res) {
 
     return res.status(200).json({
 
-      invoice_url:
+      invoice_url: npData.invoice_url,
 
-        npData.invoice_url,
+      invoice_id: npData.id ?? null,
 
-      invoice_id:
+      order_id: orderId,
 
-        npData.id ?? null,
-
-      order_id:
-
-        orderId,
-
-      subtotal:
-
-        Number(subtotal.toFixed(2)),
+      subtotal: Number(subtotal.toFixed(2)),
 
       shipping,
 
@@ -564,13 +372,7 @@ export default async function handler(req, res) {
 
           ? err.message
 
-          : String(
-
-              err ||
-
-                "Unknown checkout error"
-
-            )
+          : String(err || "Unknown checkout error")
 
     });
 
