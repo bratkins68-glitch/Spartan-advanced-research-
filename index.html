@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<title>Spartan Advanced Research — Catalog</title>
+<style>
+:root{--bg:#0a0a0a;--panel:#151515;--line:#2a2a2a;--text:#f5f5f5;--muted:#a9a9a9;--accent:#d9d9d9}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+header{position:sticky;top:0;z-index:2;background:rgba(10,10,10,.94);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);padding:18px 20px}
+.brand{max-width:1180px;margin:auto;display:flex;align-items:center;justify-content:space-between;gap:18px}
+.logo strong{display:block;font-size:20px;letter-spacing:.12em}
+.logo small{color:var(--muted);letter-spacing:.22em;font-size:10px}
+.search{width:min(360px,48vw);background:#111;border:1px solid #333;border-radius:12px;padding:11px 14px;color:white;font-size:16px}
+main{max-width:1180px;margin:auto;padding:34px 20px 60px}
+.hero{padding:14px 0 30px}
+.eyebrow{font-size:12px;letter-spacing:.2em;color:var(--muted);font-weight:700}
+h1{font-size:clamp(34px,7vw,62px);line-height:1;margin:8px 0 12px}
+.hero p{color:var(--muted);max-width:720px;font-size:17px;line-height:1.5}
+.meta{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.pill{border:1px solid var(--line);border-radius:999px;padding:8px 11px;color:#ccc;font-size:13px;text-decoration:none}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.card{background:linear-gradient(180deg,#171717,#111);border:1px solid var(--line);border-radius:18px;padding:18px;min-height:300px;display:flex;flex-direction:column}
+.product-photo{width:100%;height:150px;object-fit:contain;display:block;filter:drop-shadow(0 10px 12px rgba(0,0,0,.28));border-radius:10px}
+.order-btn{margin-top:12px;width:100%;border:1px solid #e7e7e7;background:#f5f5f5;color:#111;border-radius:10px;padding:11px 12px;font-weight:800;cursor:pointer}
+.order-btn.added{background:#1f1f1f;color:#fff;border-color:#555}
+.request-bar{position:fixed;left:12px;right:12px;bottom:12px;z-index:5;display:flex;justify-content:space-between;align-items:center;gap:12px;background:rgba(18,18,18,.97);border:1px solid #3a3a3a;border-radius:12px;padding:10px}
+.request-bar button{border:0;border-radius:9px;padding:10px 14px;font-weight:800;cursor:pointer}
+.request-section{max-width:980px;margin:28px auto 90px;padding:22px;background:#121212;border:1px solid #2d2d2d;border-radius:18px}
+.request-section h2{margin:0 0 8px}.request-section p{color:#aaa}.request-items{display:grid;gap:8px;margin:18px 0}
+.details-hint{font-size:11px;color:#8f8f8f;margin:0 0 8px;letter-spacing:.03em}
+.card{cursor:pointer;transition:transform .15s ease,border-color .15s ease}
+.card:hover,.card:focus{border-color:#555;transform:translateY(-6px)}
+.age-gate{position:fixed;inset:0;z-index:99999;background:rgba(0,0,0,.97);display:flex;align-items:center;justify-content:center;padding:22px}
+.age-gate.hidden{display:none}
+.age-box{width:min(520px,100%);background:#151515;border:1px solid #3a3a3a;border-radius:22px;padding:30px 24px;text-align:center;box-shadow:0 24px 80px rgba(0,0,0,.55)}
+.age-mark{font-size:13px;letter-spacing:.22em;color:#aaa;font-weight:700;margin-bottom:10px}
+.age-box h2{font-size:32px;margin:6px 0 10px}
+.age-box p{color:#bbb;line-height:1.55;margin:0 auto 20px;max-width:430px}
+.age-check{display:flex;align-items:flex-start;gap:12px;text-align:left;background:#0e0e0e;border:1px solid #333;border-radius:14px;padding:15px;margin:18px 0}
+.age-check input{width:22px;height:22px;margin:1px 0 0;accent-color:#fff;flex:0 0 auto}
+.age-check label{color:#f2f2f2;line-height:1.4;font-weight:600;cursor:pointer}
+.age-enter{width:100%;border:0;border-radius:13px;padding:14px 18px;font-size:16px;font-weight:800;background:#f2f2f2;color:#111;cursor:pointer}
+.age-enter:disabled{opacity:.35;cursor:not-allowed}
+.age-note{font-size:12px!important;color:#858585!important;margin-top:14px!important}
+body.age-locked{overflow:hidden}
+body:has(#ageConfirm:checked) .age-gate{display:none!important}
+body:has(#ageConfirm:checked){overflow:auto!important}
+@media(max-width:900px){.grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:520px){.brand{align-items:flex-start;flex-direction:column}.search{width:100%}.grid{grid-template-columns:1fr 1fr;gap:10px}.card{padding:13px;min-height:260px}.product-photo{height:110px}}
+</style>
+</head>
+<body class="age-locked">
+<div class="age-gate" id="ageGate" role="dialog" aria-modal="true" aria-labelledby="ageGateTitle">
+  <div class="age-box">
+    <div class="age-mark">SPARTAN ADVANCED RESEARCH</div>
+    <h2 id="ageGateTitle">Age Verification</h2>
+    <p>You must be at least 18 years old to enter this catalog.</p>
+    <div class="age-check">
+      <input id="ageConfirm" type="checkbox"/>
+      <label for="ageConfirm">I confirm that I am 18 years of age or older.</label>
+    </div>
+    <p class="age-note">Check the box above and the catalog will open immediately.</p>
+  </div>
+</div>
+
+<noscript><div style="margin:16px auto;max-width:980px;padding:14px 16px;border:1px solid #777;border-radius:10px;background:#1d1d1d;color:#fff;font-family:Arial,sans-serif"><strong>JavaScript is required to use this site.</strong></div></noscript>
+<header>
+<div class="brand">
+  <div class="logo"><strong>SPARTAN</strong><small>ADVANCED RESEARCH</small></div>
+  <div style="display:flex;gap:12px;align-items:center">
+    <input class="search" id="search" placeholder="Search catalog" type="search"/>
+    <a href="/calculator.html" class="pill" aria-label="Open calculator">Calculator</a>
+  </div>
+</div>
+</header>
+<main>
+<section class="hero">
+<div class="eyebrow">SPARTAN ADVANCED RESEARCH</div>
+<h1>Research Catalog</h1>
+<p style="color:#aaa;margin-top:8px;font-size:14px">Tap a product card for details, or tap Add to Cart to add it to your order. Use the Calculator button in the header for dosing calculations.</p></section>
+<section class="grid" id="grid">
+<!-- Product cards will be rendered client-side. This index.html preserves the original product markup but uses a cleaner filename. -->
+</section>
+</main>
+<footer style="text-align:center;padding:28px 10px;color:#8f8f8f">Spartan Advanced Research — Catalog</footer>
+</body>
+</html>
